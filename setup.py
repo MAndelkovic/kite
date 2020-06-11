@@ -10,7 +10,7 @@ import sys
 import platform
 import subprocess
 
-from setuptools import setup, Extension
+from setuptools import setup, find_packages, Extension
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
@@ -67,12 +67,14 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
 
 setup(
-    name='kite',
-    version='2.0.0',
-    authors='Misa',
+    name='quantum-kite-MAndelkovic',
+    version='2.0.2',
+    author='Misa',
     author_email='misa.s.andelkovic@gmail.com',
     description='A test KITE project using pybind11 and CMake',
     long_description='',
+    packages=find_packages(),
+    include_package_data=True,
     ext_modules=[CMakeExtension('_kite')],
     install_requires=['numpy>=1.12', 'scipy>=0.19', 'matplotlib>=2.0', 'h5py>=2.9'],
     cmdclass=dict(build_ext=CMakeBuild),
