@@ -1,4 +1,4 @@
-include CMakeLists.txt license.md readme.md
+include CMakeLists.txt LICENSE.md README.md
 
 graft cpp
 graft python_wrapper
