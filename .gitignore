@@ -122,3 +122,8 @@ deps/
 build/
 *.egg-info/
 *.egg
+
+# distribution
+dist/
+testing/
+test_module/
