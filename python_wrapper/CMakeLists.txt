@@ -1,3 +1,5 @@
+set(CMAKE_CXX_STANDARD 17)
+
 add_subdirectory(deps/pybind11)
 pybind11_add_module(_kite src/main.cpp)
 
