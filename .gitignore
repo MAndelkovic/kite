@@ -115,9 +115,6 @@ pp
 # Python cache files
 __pycache__
 
-# Libraries
-deps/
-
 # Compilation and package output
 build/
 *.egg-info/

@@ -1,0 +1,7 @@
+[submodule "python_wrapper/deps/pybind11"]
+
+	path = python_wrapper/deps/pybind11
+
+	url = https://github.com/pybind/pybind11
+
+
