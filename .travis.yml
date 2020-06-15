@@ -39,3 +39,5 @@ install:
   - mkdir build && cd build && cmake -DPYTHON_EXECUTABLE=$(which python) ../ && cd ../
   - python setup.py sdist && cd dist
   - pip install -v *.tar.gz
+script:
+  - python -c "import kite; exit(kite.tests())"
