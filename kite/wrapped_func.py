@@ -1,5 +1,5 @@
 from . import _kitecpp
-
+from . import utilities
 
 def KITEx(input):
     """Calculates the expansion moments for a desired system/functionality defined in the input. For more information
@@ -11,7 +11,7 @@ def KITEx(input):
 
     Parameters
     ----------
-    input : str
+    input : str, PosixPath
         Name of the h5 file that will be processed with KITEx
 
     Example
@@ -24,7 +24,14 @@ def KITEx(input):
     -------
     int 0 if the function exited correctly
     """
-    return _kitecpp.kitex(input)
+    try:
+        with utilities.block_output():
+            if not (isinstance(input, str)):
+                return _kitecpp.kitex(str(input))
+            else:
+                return _kitecpp.kitex(input)
+    except ValueError or Exception:
+        raise ValueError('Wrong input to KITEx!')
 
 
 def KITEtools(input):
@@ -33,7 +40,7 @@ def KITEtools(input):
 
     Parameters
     ----------
-    input : str
+    input : str, PosixPath
         Label that define which function with which parameters will be reconstructed. For a full list of parameters see
         https://quantum-kite.com/category/capabilities/post-processing-tools/
 
@@ -49,4 +56,12 @@ def KITEtools(input):
     -------
     int 0 if the function exited correctly
     """
-    return _kitecpp.kite_tools(input.split())
+
+    try:
+        with utilities.block_output():
+            if not (isinstance(input, str)):
+                return _kitecpp.kite_tools(str(input).split())
+            else:
+                return _kitecpp.kite_tools(input.split())
+    except ValueError or Exception:
+        raise ValueError('Wrong input to KITEtools!')
