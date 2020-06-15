@@ -1,0 +1,41 @@
+language: cpp
+dist: xenial
+sudo: true
+matrix:
+  include:
+  - os: linux
+    compiler: gcc
+    env: PYTHON=3.6
+  - os: linux
+    compiler: gcc
+    env: PYTHON=3.7
+  - os: linux
+    compiler: gcc
+    env: PYTHON=3.8
+before_install:
+- |
+  echo "general config"
+  export CXX=g++-5 CC=gcc-5;
+- sudo apt-get update
+- echo "install hdf5-tools"
+- sudo apt-get -y install h5utils libhdf5-dev hdf5-tools
+- echo "install eigen"
+- sudo apt-get -y install libeigen3-dev
+- |
+  echo "install miniconda"
+  if [ "$TRAVIS_OS_NAME" = "linux" ]; then OS=Linux-x86_64; else OS=MacOSX-x86_64; fi
+  wget -q -O miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-$OS.sh
+  bash miniconda.sh -b -p $HOME/miniconda
+  rm miniconda.sh
+  export PATH="$HOME/miniconda/bin:$PATH"
+  conda config --set always_yes yes --set changeps1 no
+  conda update -q conda
+  conda create -q -n test-env python=$PYTHON scipy matplotlib numpy pytest cmake h5py pip
+  source activate test-env
+  pip install kwant
+  pip install git+https://github.com/dean0x7d/pybinding.git@develop
+  conda info -a
+install:
+  - mkdir build && cd build && cmake -DPYTHON_EXECUTABLE=$(which python) ../ && cd ../
+  - python setup.py sdist && cd dist
+  - pip install -v *.tar.gz
