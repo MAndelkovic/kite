@@ -1,0 +1,5 @@
+ g++
+ libhdf5-dev
+ libeigen3-dev
+ git
+ cmake

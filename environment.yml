@@ -1,0 +1,20 @@
+name: kite-env
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - matplotlib=3.2
+  - numpy=1.18.5
+  - scipy=1.4.1
+  - pytest=5.4.3
+  - cmake=3.17.0
+  - pip=20.0
+  - python=3.8
+  - pip:
+      - git+https://github.com/dean0x7d/pybinding.git@develop
+      - quantum-kite-MAndelkovic
+      - --no-binary=h5py h5py
+      - --no-binary=h5py
+      - h5py
