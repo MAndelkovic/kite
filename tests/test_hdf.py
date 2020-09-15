@@ -12,7 +12,7 @@ from .funcionalities import convert_lattice, convert_hamiltonian, define_type
 
 os.environ['SEED'] = "0"  # sets the seed in KITE random generator
 configuration_params = {'length': [128, 128], 'divisions': [2, 2], 'boundaries': [True, True],
-                        'is_complex': True, 'precision': 1, 'spectrum_range': [-4.1, 4.1]}
+                        'is_complex': 1, 'precision': 1, 'spectrum_range': [-4.1, 4.1]}
 configuration_calc = {'dos': {'num_points': 1000, 'num_moments': 128, 'num_random': 100, 'num_disorder': 1},
                       'gaussian_wave_packet': {'num_moments': 1024, 'num_points': 1000, 'num_disorder': 2,
                                                'spinor': np.array([[1 / 2 + 1j / 2, 1 / 2 + 1j / 2]]), 'width': 0.5,
@@ -60,16 +60,16 @@ def test_hdf_equality(lattice, kite_reference_data):
 
     file_ref = kite_reference_data(lattice, configuration_params, configuration_calc, ext='.h5', execute_kite=False)
     with h5py.File(file_ref, 'r') as hf:
-        assert FuzzyEqual(hf['IS_COMPLEX'][...], configuration_params['is_complex'])
-        assert FuzzyEqual(hf['PRECISION'][...], configuration_params['precision'])
+        assert hf['IS_COMPLEX'][...] == configuration_params['is_complex']
+        assert hf['PRECISION'][...] == configuration_params['precision']
         assert FuzzyEqual(hf['L'][...], configuration_params['length'])
         assert FuzzyEqual(hf['Divisions'][...], configuration_params['divisions'])
-        assert FuzzyEqual(hf['DIM'][...], lattice_prop['space_size'])
+        assert hf['DIM'][...] == lattice_prop['space_size']
         assert FuzzyEqual(hf['LattVectors'][...], lattice_prop['latt_vectors'])
         assert FuzzyEqual(hf['OrbPositions'][...], lattice_prop['position'])
-        assert FuzzyEqual(hf['NOrbitals'][...], np.sum(lattice_prop['num_orbitals']))
-        assert FuzzyEqual(hf['EnergyScale'][...], energy_scale)
-        assert FuzzyEqual(hf['EnergyShift'][...], energy_shift)
+        assert hf['NOrbitals'][...] == np.sum(lattice_prop['num_orbitals'])
+        assert np.isclose(hf['EnergyScale'][...], energy_scale)
+        assert np.isclose(hf['EnergyShift'][...], energy_shift)
 
         ham_info = hf['Hamiltonian']
         assert FuzzyEqual(ham_info['NHoppings'][...], hamiltonian_prop['num_hoppings'])

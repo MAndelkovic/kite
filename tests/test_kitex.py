@@ -16,7 +16,7 @@ lattices = {
 }
 
 configuration_params = {'length': [64, 64], 'divisions': [1, 1], 'boundaries': [True, True],
-                        'is_complex': True, 'precision': 1, 'spectrum_range': [-6.1, 6.1]}
+                        'is_complex': True, 'precision': 1, 'spectrum_range': [-9.1, 9.1]}
 configuration_calc = {'dos': {'num_points': 100, 'num_moments': 256, 'num_random': 1, 'num_disorder': 1},
                       'conductivity_dc': {'num_points': 50, 'num_moments': 16, 'num_random': 1, 'num_disorder': 1,
                                           'direction': 'xy', 'temperature': 100},
