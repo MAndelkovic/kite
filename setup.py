@@ -68,7 +68,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='quantum-kite-MAndelkovic',
-    version='2.0.2',
+    version='2.0.3',
     author='Misa',
     author_email='misa.s.andelkovic@gmail.com',
     description='A test KITE project using pybind11 and CMake',
